@@ -26,8 +26,7 @@ jobs:
             cd $env:TEMP
             npm init -y
             npm install dashcam-chrome
-            Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/Windows-Containers/Main/helpful_tools/Install-DockerCE/install-docker-ce.ps1" -o install-docker-ce.ps1
-            .\install-docker-ce.ps1
+            choco install docker-desktop
             export ANTHROPIC_API_KEY=${{ secrets.ANTHRO }}
             docker run \
                 -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
