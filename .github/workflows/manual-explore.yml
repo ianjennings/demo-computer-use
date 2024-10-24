@@ -26,7 +26,7 @@ jobs:
             cd $env:TEMP
             npm init -y
             npm install dashcam-chrome
-            choco install docker-desktop
+            choco install docker-desktop -y
             export ANTHROPIC_API_KEY=${{ secrets.ANTHRO }}
             docker run \
                 -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
