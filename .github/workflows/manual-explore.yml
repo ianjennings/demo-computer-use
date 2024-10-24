@@ -26,6 +26,17 @@ jobs:
             cd $env:TEMP
             npm init -y
             npm install dashcam-chrome
+            Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/Windows-Containers/Main/helpful_tools/Install-DockerCE/install-docker-ce.ps1" -o install-docker-ce.ps1
+            .\install-docker-ce.ps1
+            export ANTHROPIC_API_KEY=${{ secrets.ANTHRO }}
+            docker run \
+                -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
+                -v $HOME/.anthropic:/home/computeruse/.anthropic \
+                -p 5900:5900 \
+                -p 8501:8501 \
+                -p 6080:6080 \
+                -p 8080:8080 \
+                -it ghcr.io/anthropics/anthropic-quickstarts:computer-use-demo-latest
             Start-Process "C:/Program Files/Google/Chrome/Application/chrome.exe" -ArgumentList "--start-maximized", "--load-extension=$(pwd)/node_modules/dashcam-chrome/build", "${{ vars.TESTDRIVER_WEBSITE }}"
             exit
           create-pr: true
