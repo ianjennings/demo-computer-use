@@ -6,6 +6,7 @@ permissions:
   pull-requests: write
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       prompt:
@@ -26,6 +27,7 @@ jobs:
             cd $env:TEMP
             npm init -y
             npm install dashcam-chrome
+            choco feature enable -n=allowGlobalConfirmation
             choco install docker-desktop -y
             docker run \
                 -e ANTHROPIC_API_KEY=${{ secrets.ANTHRO }} \
